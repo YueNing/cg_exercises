@@ -1,0 +1,6 @@
+/mnt/cgshare/cg_exercises/04_bvh_v5/cg_exercise_04/04_bvh/build/CMakeFiles/edit_cache.dir
+/mnt/cgshare/cg_exercises/04_bvh_v5/cg_exercise_04/04_bvh/build/CMakeFiles/rebuild_cache.dir
+/mnt/cgshare/cg_exercises/04_bvh_v5/cg_exercise_04/04_bvh/build/CMakeFiles/cg.dir
+/mnt/cgshare/cg_exercises/04_bvh_v5/cg_exercise_04/cglib/build/cglib/CMakeFiles/edit_cache.dir
+/mnt/cgshare/cg_exercises/04_bvh_v5/cg_exercise_04/cglib/build/cglib/CMakeFiles/rebuild_cache.dir
+/mnt/cgshare/cg_exercises/04_bvh_v5/cg_exercise_04/cglib/build/cglib/CMakeFiles/cglib_cg_4.dir

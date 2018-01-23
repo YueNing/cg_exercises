@@ -1,0 +1,6 @@
+/mnt/cgshare/02_whitted_v2/cg_exercise_02/02_whitted/build/CMakeFiles/edit_cache.dir
+/mnt/cgshare/02_whitted_v2/cg_exercise_02/02_whitted/build/CMakeFiles/rebuild_cache.dir
+/mnt/cgshare/02_whitted_v2/cg_exercise_02/02_whitted/build/CMakeFiles/cg.dir
+/mnt/cgshare/02_whitted_v2/cg_exercise_02/cglib/build/cglib/CMakeFiles/edit_cache.dir
+/mnt/cgshare/02_whitted_v2/cg_exercise_02/cglib/build/cglib/CMakeFiles/rebuild_cache.dir
+/mnt/cgshare/02_whitted_v2/cg_exercise_02/cglib/build/cglib/CMakeFiles/cglib_cg_2.dir

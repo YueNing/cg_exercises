@@ -1,0 +1,6 @@
+/mnt/cgshare/01_colors/cg_exercise_01/01_colors/build/CMakeFiles/edit_cache.dir
+/mnt/cgshare/01_colors/cg_exercise_01/01_colors/build/CMakeFiles/rebuild_cache.dir
+/mnt/cgshare/01_colors/cg_exercise_01/01_colors/build/CMakeFiles/cg.dir
+/mnt/cgshare/01_colors/cg_exercise_01/cglib/build/cglib/CMakeFiles/edit_cache.dir
+/mnt/cgshare/01_colors/cg_exercise_01/cglib/build/cglib/CMakeFiles/rebuild_cache.dir
+/mnt/cgshare/01_colors/cg_exercise_01/cglib/build/cglib/CMakeFiles/cglib_cg_1.dir

@@ -27,9 +27,9 @@ main()
 	// TODO: iterate over all lights and accumulate illumination
 	// according the the phong illumination model on the exercise sheet
 	vec3 x = world_position;
-	vec3 N = world_normal_interpolated;
-	vec3 V = normalize(cam_world_pos - x);
-	vec3 R = reflect(V, N);
+	vec3 N = normalize(world_normal_interpolated);
+	vec3 V = cam_world_pos - x;
+	vec3 R = normalize(reflect(V, N));
 	vec3 sum;
 	for (int i = 0; i < light_count; ++i)
 	{
@@ -37,7 +37,7 @@ main()
 		vec3 I_l = light_intensity[i];
 		vec3 L = normalize(x_l - x);
 		sum += (k_d * max(0, dot(L, N)) + k_s * pow(max(0, dot(R, L)), n)) 
-				* I_l/ pow(dot(x - x_l, x - x_l), 2.0);
+				* I_l/ dot(x - x_l, x - x_l);
 	}
 	
 	frag_color = vec4(sum, 1.0);

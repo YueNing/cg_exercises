@@ -28,8 +28,8 @@ main()
 	// according the the phong illumination model on the exercise sheet
 	vec3 x = world_position;
 	vec3 N = normalize(world_normal_interpolated);
-	vec3 V = cam_world_pos - x;
-	vec3 R = normalize(reflect(V, N));
+	vec3 V = normalize(cam_world_pos - x);
+	vec3 R = reflect(V, N);
 	vec3 sum;
 	for (int i = 0; i < light_count; ++i)
 	{

@@ -91,19 +91,18 @@ prefilter_environment_diffuse(Image const& img)
 		for (int x = 0; x < width; ++x) {
 			// TODO: compute normal direction
 			glm::ivec2 size = glm::ivec2(width, height);
-			vec3 normal = direction_from_lonlat_coord(glm::ivec2(x, y), size);
+			glm::vec3 normal = direction_from_lonlat_coord(glm::ivec2(x, y), size);
 			glm::vec4 l_d = glm::vec4(0.f, 0.f, 0.f, 1.f);
 
 			// ... integrate over all incident directions.
-			vec3 l_d;
 			for (int dy = 0; dy < height; ++dy) {
 				for (int dx = 0; dx < width; ++dx) {
 					// TODO: compute incident direction
-					vec3 r = direction_from_lonlat_coord(glm::ivec2(dx, dy), size);
+					glm::vec3 r = direction_from_lonlat_coord(glm::ivec2(dx, dy), size);
 					glm::ivec2 position = lonlat_coord_from_direction(r, size);
 					// TODO: accumulate samples
 					float s = solid_angle_from_lonlat_coord(position, size);
-					l_d += img.getPixel(position[0], position[1]) * max(0, dot(normal, r)) * s;
+					l_d += img.getPixel(position[0], position[1]) * glm::max(0.f, dot(normal, r)) * s;
 				}
 			}
 
@@ -140,18 +139,18 @@ prefilter_environment_specular(Image const& img, float n)
 			glm::vec4 l_s = glm::vec4(0.f, 0.f, 0.f, 1.f);
 			for (int dy = 0; dy < height; ++dy) {
 				for (int dx = 0; dx < width; ++dx) {
-					vec3 r = direction_from_lonlat_coord(glm::ivec2(dx, dy), size);
+					glm::vec3 r = direction_from_lonlat_coord(glm::ivec2(dx, dy), size);
 					glm::ivec2 position = lonlat_coord_from_direction(r, size);
 					// TODO: compute incident direction
 					// TODO: accumulate samples
 					float s = solid_angle_from_lonlat_coord(position, size);
-					l_s += img.getPixel(position[0], position[1]) * max(0, pow(dot(R, r), n)) * s;
+					l_s += img.getPixel(position[0], position[1]) * glm::pow(glm::max(0.0f, glm::dot(R, r)), n) * s;
 				}
 			}
 
 			// TODO: write filtered value
 			//filtered->setPixel(...);
-			filtered->setPixel(x, y, l_s)
+			filtered->setPixel(x, y, l_s);
 		}
 	}
 

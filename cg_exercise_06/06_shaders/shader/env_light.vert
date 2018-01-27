@@ -14,7 +14,9 @@ void
 main()
 {
 	// TODO: correctly set gl_Position, world_position, world_normal_interpolated
-	gl_Position = vec4(100.0, 100.0, 100.0, 1.0);
-	world_normal_interpolated = vec3(1.0);
-	world_position = vec3(0.0);
+	// gl_Position = vec4(100.0, 100.0, 100.0, 1.0);
+	gl_Position = MVP * vec4(POSITION, 1.f);
+	world_normal_interpolated = normal_matrix * NORMAL;
+	world_position = (model_matrix * vec4(POSITION, 1.f)).xyz;
 }
+ 

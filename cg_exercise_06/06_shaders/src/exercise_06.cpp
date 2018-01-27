@@ -103,7 +103,7 @@ prefilter_environment_diffuse(Image const& img)
 					glm::ivec2 position = lonlat_coord_from_direction(r, size);
 					// TODO: accumulate samples
 					float s = solid_angle_from_lonlat_coord(position, size);
-					l_d += l_in * max(0, dot(normal, r)) * s;
+					l_d += img.getPixel(position[0], position[1]) * max(0, dot(normal, r)) * s;
 				}
 			}
 
@@ -145,7 +145,7 @@ prefilter_environment_specular(Image const& img, float n)
 					// TODO: compute incident direction
 					// TODO: accumulate samples
 					float s = solid_angle_from_lonlat_coord(position, size);
-					l_s += l_in * max(0, pow(dot(R, r), n)) * s;
+					l_s += img.getPixel(position[0], position[1]) * max(0, pow(dot(R, r), n)) * s;
 				}
 			}
 

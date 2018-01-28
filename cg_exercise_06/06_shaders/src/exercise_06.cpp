@@ -18,21 +18,41 @@ std::shared_ptr<SceneGraphNode> buildSphereFlakeSceneGraph(
 {
 	// TODO: create root SceneGraphNode and set model
 	auto root = std::make_shared<SceneGraphNode>();
-	//root->model = ...;
+	root->model = model;
 
 	// TODO: only create children if there are remaining recursions
-
-	// TODO: create 5 child nodes
-	for (int i = 0; i < 5; ++i)
+	if(number_of_remaining_recursions >0)
 	{
-		// TODO: create sphere flake sub graph for each child
-		//auto subgraph = buildSphereFlakeSceneGraph(...);
+		// TODO: create 5 child nodes
+		for (int i = 0; i < 5; ++i)
+		{
+			// TODO: create sphere flake sub graph for each child
+			auto subgraph = buildSphereFlakeSceneGraph(model, sphere_model_radius, size_factor, number_of_remaining_recursions -1);
 
-		// TODO: compute transformation matrix from the child node to the parent node (this function call's root node)
-
-		// TODO: add each subgraph to the children of this function call's root node
+			// TODO: compute transformation matrix from the child node to the parent node (this function call's root node)
+			float r = sphere_model_radius + (sphere_model_radius * size_factor);
+			float p = 3.1415926 / 2;
+			switch(i) {
+				case 0: subgraph->parent_to_node = glm::translate(glm::mat4(), glm::vec3(r, 0.0f, 0.0f)) * glm::scale(glm::mat4(), glm::vec3(size_factor))
+												 * glm::rotate(-p, glm::vec3(0.0f, 0.0f, 1.0f));
+						break;
+				case 1: subgraph->parent_to_node = glm::translate(glm::mat4(), glm::vec3(-r, 0.0f, 0.0f)) * glm::scale(glm::mat4(), glm::vec3(size_factor))
+												 * glm::rotate(p, glm::vec3(0.0f, 0.0f, 1.0f));
+						break;
+				case 2: subgraph->parent_to_node = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, r)) * glm::scale(glm::mat4(), glm::vec3(size_factor))
+												 * glm::rotate(p, glm::vec3(1.0f, 0.0f, 0.0f));
+						break;
+				case 3: subgraph->parent_to_node = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -r)) * glm::scale(glm::mat4(), glm::vec3(size_factor))
+												 * glm::rotate(-p, glm::vec3(1.0f, 0.0f, 0.0f));
+						break;
+				case 4: subgraph->parent_to_node = glm::translate(glm::mat4(), glm::vec3(0.0f, r, 0.0f))
+												 * glm::scale(glm::mat4(), glm::vec3(size_factor));
+			}
+			subgraph->node_to_parent = glm::transpose(subgraph->parent_to_node);
+			// TODO: add each subgraph to the children of this function call's root node
+			root->children.push_back(subgraph);
+		}
 	}
-
 	return root;
 }
 
@@ -48,11 +68,17 @@ void SceneGraphNode::collectTransformedModels(
 	const
 {
 	// TODO: compute node_to_world and world_to_node transformation matrices for this node
-	
+	glm::mat4 ptw = parent_to_world * parent_to_node;
+	glm::mat4 wtp = world_to_parent * node_to_parent;
 	// TODO: add this node's model to the list of transformed models
-	//transformed_models.push_back(TransformedModel(...));
+	transformed_models.push_back(TransformedModel(ptw, wtp, &(*model)));
 
 	// TODO: recursively transform and add the models of all children (subgraphs)
+	if(children.size() !=0) {
+		for(std::shared_ptr<SceneGraphNode> x : children) {
+			x->collectTransformedModels(transformed_models, ptw, wtp);
+		}
+	}
 }
 
 
@@ -65,13 +91,18 @@ void animateSphereFlake(
 	float angle_increment) // the incremental rotation angle
 {
 	// TODO: compute incremental rotation matrix for the given node node
-	//glm::mat4 rotation = glm::rotate(angle_increment, ...);
+	glm::mat4 rotation = glm::rotate(angle_increment, glm::vec3(0.f, 1.f, 0.f));
 
 	// TODO: compute the parent-relative transformation matrices for this node
-	//node.node_to_parent = ...
-	//node.parent_to_node = ...
+	node.node_to_parent = node.node_to_parent * rotation;
+	node.parent_to_node = node.parent_to_node * glm::transpose(rotation);
 
 	// TODO: recursively animate child subgraphs
+	if(node.children.size() != 0) {
+		for(std::shared_ptr<SceneGraphNode> x : node.children) {
+			animateSphereFlake(*x, angle_increment);
+		}
+	}
 }
 
 
